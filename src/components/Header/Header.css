@@ -1,0 +1,614 @@
+/**
+ * Layout do Header - Perfil de Restaurante
+ * Seção superior azul + seção inferior preta + logo circular no meio
+ */
+
+.header {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+}
+
+/* Seção superior azul - altura ajustada */
+.header-blue-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: #4A90E2;
+}
+
+/* Curva de separação - mais diagonal */
+.header-blue-section::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #4A90E2;
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+}
+
+/* Ajuste da curva para mobile */
+@media (max-width: 768px) {
+  .header-blue-section::after {
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-blue-section::after {
+    height: 25px;
+  }
+}
+
+@media (max-width: 360px) {
+  .header-blue-section::after {
+    height: 20px;
+  }
+}
+
+/* Seção inferior preta - altura ajustada */
+.header-black-section {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 160px;
+  background: #000000;
+}
+
+/* Container da logo circular - posicionado à ESQUERDA como na referência */
+.restaurant-profile {
+  position: absolute;
+  top: 55%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: left;
+  width: calc(100% - 40px);
+  max-width: 400px;
+}
+
+/* Logo circular - ajustado para ficar como na referência */
+.restaurant-logo {
+  width: 120px;
+  height: 120px;
+  background: #2D1810;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 20px 0;
+  border: 4px solid #8B4513;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.restaurant-logo .gourmet-text {
+  font-size: 10px;
+  font-weight: bold;
+  color: #D4A574;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.restaurant-logo .burger-icon {
+  font-size: 40px;
+  margin: 5px 0;
+}
+
+.restaurant-logo .restaurant-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #D4A574;
+  text-align: center;
+  line-height: 1.1;
+}
+
+/* Informações do restaurante - alinhadas à esquerda como na referência */
+.restaurant-info h1 {
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.restaurant-rating {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  color: #D1D5DB;
+  font-size: 1rem;
+  flex-wrap: wrap;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.star {
+  color: #FCD34D;
+}
+
+/* Detalhes extras do restaurante */
+.restaurant-details {
+  display: flex;
+  gap: 20px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #9CA3AF;
+  font-size: 0.9rem;
+}
+
+.detail-icon {
+  font-size: 1rem;
+}
+
+/* Controles do header - posicionados nos cantos */
+.header-controls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 20;
+}
+
+.header-button {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+
+.header-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #FF4757;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Menu lateral */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 200;
+  animation: fadeIn 0.3s ease;
+}
+
+.menu-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  background: #1F2937;
+  z-index: 201;
+  animation: slideInLeft 0.3s ease;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #374151;
+}
+
+.menu-header h3 {
+  color: #F9FAFB;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.close-menu {
+  background: none;
+  border: none;
+  color: #9CA3AF;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.close-menu:hover {
+  background: #374151;
+  color: #F9FAFB;
+}
+
+.menu-nav {
+  padding: 1rem;
+}
+
+.menu-nav button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #D1D5DB;
+  padding: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.menu-nav button:hover {
+  background: #374151;
+  color: #F9FAFB;
+  transform: translateX(4px);
+}
+
+/* Barra de pesquisa expandida */
+.search-expanded {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: #1F2937;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.3s ease;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #374151;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  width: 90%;
+  max-width: 500px;
+  gap: 0.75rem;
+}
+
+.search-container input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #F9FAFB;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-container input::placeholder {
+  color: #9CA3AF;
+}
+
+.search-container button {
+  background: none;
+  border: none;
+  color: #9CA3AF;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.search-container button:hover {
+  background: #4B5563;
+  color: #F9FAFB;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+/* Responsividade - Melhorada para telas pequenas */
+@media (max-width: 768px) {
+  .header {
+    height: 280px;
+  }
+  
+  /* Seção azul reduzida */
+  .header-blue-section {
+    height: 160px;
+  }
+  
+  /* Seção preta ajustada */
+  .header-black-section {
+    height: 140px;
+  }
+  
+  /* Logo menor e reposicionada */
+  .restaurant-logo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .restaurant-logo .gourmet-text {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  
+  .restaurant-logo .burger-icon {
+    font-size: 30px;
+  }
+  
+  .restaurant-logo .restaurant-name {
+    font-size: 11px;
+  }
+  
+  /* Perfil ajustado para mobile - à esquerda */
+  .restaurant-profile {
+    left: 30%;
+    top: 52%;
+  }
+  
+  /* Título menor - alinhado à esquerda */
+  .restaurant-info h1 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    text-align: left;
+    max-width: 100%;
+  }
+  
+  /* Rating compacto - alinhado à esquerda */
+  .restaurant-rating {
+    font-size: 0.85rem;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+  
+  /* Detalhes extras compactos */
+  .restaurant-details {
+    gap: 12px;
+  }
+  
+  .detail-item {
+    font-size: 0.8rem;
+  }
+  
+  /* Controles menores */
+  .header-controls {
+    top: 0.75rem;
+    right: 0.75rem;
+    gap: 0.25rem;
+  }
+  
+  .header-button {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .menu-sidebar {
+    width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    height: 240px;
+  }
+  
+  /* Seções ainda menores para telas muito pequenas */
+  .header-blue-section {
+    height: 120px;
+  }
+  
+  .header-black-section {
+    height: 130px;
+  }
+  
+  /* Logo ainda menor */
+  .restaurant-logo {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .restaurant-logo .gourmet-text {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+  
+  .restaurant-logo .burger-icon {
+    font-size: 20px;
+  }
+  
+  .restaurant-logo .restaurant-name {
+    font-size: 8px;
+    line-height: 1;
+  }
+  
+  /* Perfil à esquerda em telas pequenas */
+  .restaurant-profile {
+    left: 25%;
+    top: 48%;
+  }
+  
+  /* Título muito compacto - alinhado à esquerda */
+  .restaurant-info h1 {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+    max-width: 100%;
+    text-align: left;
+  }
+  
+  /* Rating super compacto - alinhado à esquerda */
+  .restaurant-rating {
+    font-size: 0.7rem;
+    gap: 3px;
+    max-width: 100%;
+    justify-content: flex-start;
+  }
+  
+  /* Detalhes extras muito compactos */
+  .restaurant-details {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .detail-item {
+    font-size: 0.7rem;
+  }
+  
+  /* Controles bem pequenos */
+  .header-controls {
+    top: 0.4rem;
+    right: 0.4rem;
+    gap: 0.2rem;
+  }
+  
+  .header-button {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .header-button svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .menu-sidebar {
+    width: 180px;
+  }
+}
+
+/* Para telas extremamente pequenas */
+@media (max-width: 360px) {
+  .header {
+    height: 220px;
+  }
+  
+  .header-blue-section {
+    height: 100px;
+  }
+  
+  .header-black-section {
+    height: 130px;
+  }
+  
+  .restaurant-logo {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .restaurant-logo .gourmet-text {
+    font-size: 5px;
+  }
+  
+  .restaurant-logo .burger-icon {
+    font-size: 16px;
+  }
+  
+  .restaurant-logo .restaurant-name {
+    font-size: 7px;
+  }
+  
+  .restaurant-profile {
+    left: 20%;
+    top: 45%;
+  }
+  
+  .restaurant-info h1 {
+    font-size: 0.85rem;
+    max-width: 100%;
+    text-align: left;
+  }
+  
+  .restaurant-rating {
+    font-size: 0.65rem;
+    gap: 2px;
+    max-width: 100%;
+    justify-content: flex-start;
+  }
+  
+  /* Detalhes extras mini */
+  .restaurant-details {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .detail-item {
+    font-size: 0.6rem;
+  }
+  
+  .header-button {
+    width: 26px;
+    height: 26px;
+  }
+  
+  .header-button svg {
+    width: 12px;
+    height: 12px;
+  }
+}

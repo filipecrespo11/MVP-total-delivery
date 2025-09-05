@@ -1,0 +1,163 @@
+/**
+ * Estilos do componente CategoryTabs
+ * Navegação por abas com design moderno e scroll horizontal
+ */
+
+.category-tabs {
+  background: #1F2937;
+  border-bottom: 1px solid #374151;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tabs-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.tabs-scroll {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE e Edge */
+  padding: 0 1rem;
+  gap: 0.5rem;
+}
+
+/* Esconde a barra de rolagem no WebKit */
+.tabs-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-button {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  margin: 0.5rem 0;
+}
+
+.tab-button:hover {
+  background: rgba(74, 144, 226, 0.1);
+}
+
+.tab-button.active {
+  background: rgba(74, 144, 226, 0.1);
+  color: #4A90E2;
+}
+
+.tab-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.tab-button:not(.active) .tab-text {
+  color: #9CA3AF;
+}
+
+.tab-button.active .tab-text {
+  color: #4A90E2;
+  font-weight: 600;
+}
+
+/* Indicador da aba ativa */
+.active-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: #4A90E2;
+  border-radius: 2px 2px 0 0;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 40px;
+    opacity: 1;
+  }
+}
+
+/* Estados de foco para acessibilidade */
+.tab-button:focus {
+  outline: 2px solid #4A90E2;
+  outline-offset: 2px;
+}
+
+.tab-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .tabs-scroll {
+    padding: 0 0.75rem;
+    gap: 0.25rem;
+  }
+  
+  .tab-button {
+    padding: 0.75rem 1rem;
+  }
+  
+  .tab-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs-scroll {
+    padding: 0 0.5rem;
+  }
+  
+  .tab-button {
+    padding: 0.75rem 0.75rem;
+  }
+  
+  .tab-text {
+    font-size: 0.85rem;
+  }
+  
+  .active-indicator {
+    width: 30px;
+  }
+}
+
+/* Efeito de gradiente nas bordas para indicar scroll */
+.tabs-container::before,
+.tabs-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.tabs-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.tabs-container::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
