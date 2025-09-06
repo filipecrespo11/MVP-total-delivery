@@ -1,21 +1,22 @@
 /**
  * Componente ProductCard
- * Card individual para exibir produtos com imagem, informações e botão de adicionar
+ * Card individual para exibir produtos - clique para abrir modal
  */
 
 import React from 'react';
-import { Plus } from 'lucide-react';
-import type { ProductCardProps } from '../../types';
+import type { Product } from '../../types';
 import { formatCurrency } from '../../utils';
 import './ProductCard.css';
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
-  const handleAddToCart = () => {
-    onAddToCart(product);
-  };
+interface ProductCardProps {
+  product: Product;
+  onClick: () => void;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
 
   return (
-    <div className="product-card">
+    <div className="product-card" onClick={onClick}>
       {/* Container da imagem */}
       <div className="product-image-container">
         <img
@@ -39,15 +40,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
             <span className="badge popular">Popular</span>
           )}
         </div>
-
-        {/* Botão de adicionar ao carrinho sobreposto */}
-        <button
-          className="add-to-cart-overlay"
-          onClick={handleAddToCart}
-          aria-label={`Adicionar ${product.name} ao carrinho`}
-        >
-          <Plus size={20} />
-        </button>
       </div>
 
       {/* Informações do produto */}
@@ -60,16 +52,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
         {product.description && (
           <p className="product-description">{product.description}</p>
         )}
-
-        {/* Botão principal de adicionar (mobile) */}
-        <button
-          className="add-to-cart-button"
-          onClick={handleAddToCart}
-          aria-label={`Adicionar ${product.name} ao carrinho por ${formatCurrency(product.price)}`}
-        >
-          <Plus size={18} />
-          <span>Adicionar</span>
-        </button>
       </div>
     </div>
   );

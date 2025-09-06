@@ -56,11 +56,6 @@ export interface Category {
 }
 
 // Props para componentes
-export interface ProductCardProps {
-  product: Product;
-  onAddToCart: (product: Product) => void;
-}
-
 export interface CartProps {
   isOpen: boolean;
   onClose: () => void;

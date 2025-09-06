@@ -15,6 +15,20 @@
   padding: 2rem 1rem;
 }
 
+/* Layout landing page */
+.main-content.landing-page {
+  padding: 1rem;
+}
+
+/* Seções por categoria */
+.category-section {
+  margin-bottom: 4rem;
+}
+
+.category-section:last-child {
+  margin-bottom: 2rem;
+}
+
 /* Header da seção */
 .section-header {
   text-align: center;
@@ -69,6 +83,14 @@
 @media (max-width: 768px) {
   .main-content {
     padding: 1.5rem 0.75rem;
+  }
+  
+  .main-content.landing-page {
+    padding: 1rem 0.5rem;
+  }
+  
+  .category-section {
+    margin-bottom: 3rem;
   }
   
   .section-title {
