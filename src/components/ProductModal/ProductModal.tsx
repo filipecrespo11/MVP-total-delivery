@@ -57,7 +57,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
             className="modal-product-image"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              target.src = '/src/assets/product-modal-placeholder.svg';
+              target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjEyMCIgcj0iNTAiIGZpbGw9IiNENEE1NzQiLz4KPHJlY3QgeD0iMTUwIiB5PSIxODAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMzAiIHJ4PSIxNSIgZmlsbD0iIzhCNDUxMyIvPgo8dGV4dCB4PSIyMDAiIHk9IjI0MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSIjNkI3MjgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5Qcm9kdXRvPC90ZXh0Pgo8L3N2Zz4K';
             }}
           />
           
