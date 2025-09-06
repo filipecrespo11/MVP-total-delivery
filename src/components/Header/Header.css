@@ -66,8 +66,8 @@
 /* Container da logo circular - posicionado à ESQUERDA como na referência */
 .restaurant-profile {
   position: absolute;
-  top: 55%;
-  left: 11%;
+  top: 54%;
+  left: 20%;
   transform: translate(-50%, -50%);
   z-index: 10;
   text-align: left;
@@ -560,8 +560,8 @@
   
   /* Perfil ajustado para mobile - à esquerda */
   .restaurant-profile {
-    left: 30%;
-    top: 52%;
+    left: 20%;
+    top: 49%;
   }
   
   /* Título menor - alinhado à esquerda */
@@ -663,7 +663,7 @@
   /* Perfil à esquerda em telas pequenas */
   .restaurant-profile {
     left: 25%;
-    top: 48%;
+    top: 50%;
   }
   
   /* Título muito compacto - alinhado à esquerda */
