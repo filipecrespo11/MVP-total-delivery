@@ -10,6 +10,22 @@
   top: 0;
   z-index: 1;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Estados de visibilidade - apenas no mobile */
+@media (max-width: 768px) {
+  .category-tabs.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .category-tabs.visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
 }
 
 .tabs-container {
