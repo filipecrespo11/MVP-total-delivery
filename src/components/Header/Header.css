@@ -6,7 +6,8 @@
 .header {
   position: relative;
   height: 320px;
-  overflow: hidden;
+  overflow: visible;
+  z-index: 1;
 }
 
 /* Seção superior azul - altura ajustada */
@@ -66,7 +67,7 @@
 .restaurant-profile {
   position: absolute;
   top: 55%;
-  left: 25%;
+  left: 11%;
   transform: translate(-50%, -50%);
   z-index: 10;
   text-align: left;
@@ -84,9 +85,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 0 20px 0;
+  margin: 0 0 5px 0;
   border: 4px solid #8B4513;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  margin-left: 90px;
 }
 
 .restaurant-logo .gourmet-text {
@@ -95,11 +97,13 @@
   color: #D4A574;
   letter-spacing: 2px;
   margin-bottom: 5px;
+  
 }
 
 .restaurant-logo .burger-icon {
   font-size: 40px;
   margin: 5px 0;
+ 
 }
 
 .restaurant-logo .restaurant-name {
@@ -108,6 +112,7 @@
   color: #D4A574;
   text-align: center;
   line-height: 1.1;
+  
 }
 
 /* Informações do restaurante - alinhadas à esquerda como na referência */
@@ -121,6 +126,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 300px;
+  margin-left: 90px;
 }
 
 .restaurant-rating {
@@ -133,16 +139,19 @@
   flex-wrap: wrap;
   max-width: 100%;
   overflow: hidden;
+  margin-left: 10px;
 }
 
 .rating-stars {
   display: flex;
   align-items: center;
   gap: 4px;
+  margin-left: 90px;
 }
 
 .star {
   color: #FCD34D;
+ 
 }
 
 /* Detalhes extras do restaurante */
@@ -151,6 +160,7 @@
   gap: 20px;
   margin-top: 12px;
   flex-wrap: wrap;
+  margin-left: 90px;
 }
 
 .detail-item {
@@ -159,10 +169,150 @@
   gap: 6px;
   color: #9CA3AF;
   font-size: 0.9rem;
+  position: relative;
+}
+
+/* Itens interativos - entrega e horários */
+.delivery-item,
+.schedule-item {
+  cursor: pointer;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 999990;
+}
+
+.delivery-item:hover,
+.schedule-item:hover {
+  color: #4A90E2;
 }
 
 .detail-icon {
   font-size: 1rem;
+}
+
+/* Tooltips */
+.delivery-tooltip,
+.schedule-tooltip {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  z-index: 999999;
+  width: 280px;
+  margin-left: 8px;
+  animation: tooltipSlideIn 0.2s ease-out;
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(74, 144, 226, 0.1);
+}
+
+.delivery-tooltip::after,
+.schedule-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  transform: translateY(-50%);
+  border: 8px solid transparent;
+  border-right-color: white;
+  z-index: 1000000;
+}
+
+/* Overlay para garantir sobreposição total */
+.delivery-tooltip::before,
+.schedule-tooltip::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999998;
+  pointer-events: none;
+}
+
+.delivery-tooltip h4,
+.schedule-tooltip h4 {
+  margin: 0 0 12px 0;
+  color: #1f2937;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Opções de entrega */
+.delivery-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.delivery-option:last-child {
+  border-bottom: none;
+}
+
+.neighborhood {
+  color: #374151;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.delivery-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.price {
+  color: #059669;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.time {
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+/* Horários */
+.schedule-day {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.schedule-day:last-child {
+  border-bottom: none;
+}
+
+.day {
+  color: #374151;
+  font-size: 0.85rem;
+}
+
+.hours {
+  color: #059669;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+@keyframes tooltipSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
 }
 
 /* Controles do header - posicionados nos cantos */
@@ -440,6 +590,25 @@
     font-size: 0.8rem;
   }
   
+  /* Tooltips responsivos */
+  .delivery-tooltip,
+  .schedule-tooltip {
+    width: 250px;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    margin-left: 8px;
+  }
+  
+  .delivery-tooltip::after,
+  .schedule-tooltip::after {
+    top: 50%;
+    left: -8px;
+    transform: translateY(-50%);
+    border: 8px solid transparent;
+    border-right-color: white;
+  }
+  
   /* Controles menores */
   .header-controls {
     top: 0.75rem;
@@ -523,6 +692,25 @@
     font-size: 0.7rem;
   }
   
+  /* Tooltips para telas pequenas */
+  .delivery-tooltip,
+  .schedule-tooltip {
+    width: 200px;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    margin-left: 5px;
+  }
+  
+  .delivery-tooltip::after,
+  .schedule-tooltip::after {
+    top: 50%;
+    left: -8px;
+    transform: translateY(-50%);
+    border: 8px solid transparent;
+    border-right-color: white;
+  }
+  
   /* Controles bem pequenos */
   .header-controls {
     top: 0.4rem;
@@ -602,6 +790,26 @@
   
   .detail-item {
     font-size: 0.6rem;
+  }
+  
+  /* Tooltips para telas extremamente pequenas - aparecem embaixo */
+  .delivery-tooltip,
+  .schedule-tooltip {
+    width: 180px;
+    top: 100%;
+    left: 0;
+    transform: none;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+  
+  .delivery-tooltip::after,
+  .schedule-tooltip::after {
+    top: -8px;
+    left: 20px;
+    transform: none;
+    border: 8px solid transparent;
+    border-bottom-color: white;
   }
   
   .header-button {

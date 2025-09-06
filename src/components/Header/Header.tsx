@@ -8,10 +8,37 @@ import { Menu, Search, ShoppingCart } from 'lucide-react';
 import type { HeaderProps } from '../../types';
 import './Header.css';
 
-const Header: React.FC<HeaderProps> = ({ cartItemsCount, onOpenCart }) => {
+const Header: React.FC<HeaderProps> = ({ 
+  cartItemsCount, 
+  onOpenCart, 
+  searchQuery, 
+  onSearchChange 
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [showDeliveryOptions, setShowDeliveryOptions] = useState(false);
+  const [showSchedule, setShowSchedule] = useState(false);
+
+  // Dados de entrega por bairro
+  const deliveryOptions = [
+    { neighborhood: 'Centro', price: '5,99', time: '30-40min' },
+    { neighborhood: 'Jardins', price: '7,99', time: '35-45min' },
+    { neighborhood: 'Vila Madalena', price: '8,99', time: '40-50min' },
+    { neighborhood: 'Pinheiros', price: '6,99', time: '25-35min' },
+    { neighborhood: 'Liberdade', price: '5,99', time: '30-40min' },
+    { neighborhood: 'Bela Vista', price: '6,99', time: '25-35min' }
+  ];
+
+  // Horários de funcionamento
+  const schedule = [
+    { day: 'Segunda-feira', hours: '18:00 - 23:30' },
+    { day: 'Terça-feira', hours: '18:00 - 23:30' },
+    { day: 'Quarta-feira', hours: '18:00 - 23:30' },
+    { day: 'Quinta-feira', hours: '18:00 - 23:30' },
+    { day: 'Sexta-feira', hours: '18:00 - 00:30' },
+    { day: 'Sábado', hours: '18:00 - 00:30' },
+    { day: 'Domingo', hours: '18:00 - 23:00' }
+  ];
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -20,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onOpenCart }) => {
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
     if (isSearchOpen) {
-      setSearchQuery('');
+      onSearchChange('');
     }
   };
 
@@ -99,13 +126,48 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onOpenCart }) => {
                 <span className="detail-icon">🕐</span>
                 <span>60-60m</span>
               </div>
-              <div className="detail-item">
+              <div 
+                className="detail-item delivery-item"
+                onMouseEnter={() => setShowDeliveryOptions(true)}
+                onMouseLeave={() => setShowDeliveryOptions(false)}
+                onClick={() => setShowDeliveryOptions(!showDeliveryOptions)}
+              >
                 <span className="detail-icon">💰</span>
-                <span>5,99</span>
+                <span>A partir de 5,99</span>
+                {showDeliveryOptions && (
+                  <div className="delivery-tooltip">
+                    <h4>Valores de entrega por bairro:</h4>
+                    {deliveryOptions.map((option, index) => (
+                      <div key={index} className="delivery-option">
+                        <span className="neighborhood">{option.neighborhood}</span>
+                        <div className="delivery-info">
+                          <span className="price">R$ {option.price}</span>
+                          <span className="time">{option.time}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-              <div className="detail-item">
+              <div 
+                className="detail-item schedule-item"
+                onMouseEnter={() => setShowSchedule(true)}
+                onMouseLeave={() => setShowSchedule(false)}
+                onClick={() => setShowSchedule(!showSchedule)}
+              >
                 <span className="detail-icon">⏰</span>
                 <span>Ver horários</span>
+                {showSchedule && (
+                  <div className="schedule-tooltip">
+                    <h4>Horários de funcionamento:</h4>
+                    {schedule.map((item, index) => (
+                      <div key={index} className="schedule-day">
+                        <span className="day">{item.day}</span>
+                        <span className="hours">{item.hours}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -140,7 +202,7 @@ const Header: React.FC<HeaderProps> = ({ cartItemsCount, onOpenCart }) => {
               type="text"
               placeholder="Buscar produtos..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => onSearchChange(e.target.value)}
               autoFocus
             />
             <button onClick={toggleSearch}>✕</button>

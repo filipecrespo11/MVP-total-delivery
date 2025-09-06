@@ -14,10 +14,19 @@ import './App.css';
 const AppContent: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryType>('destaques');
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { addItem, getItemsCount, clearCart } = useCart();
 
   // Obtém os produtos da categoria ativa
   const products = getProductsByCategory(activeCategory);
+  
+  // Filtra produtos baseado na pesquisa
+  const filteredProducts = searchQuery.trim() 
+    ? products.filter(product => 
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : products;
 
   // Manipula a adição de produtos ao carrinho
   const handleAddToCart = (product: Product) => {
@@ -29,6 +38,11 @@ const AppContent: React.FC = () => {
   // Manipula a mudança de categoria
   const handleCategoryChange = (category: CategoryType) => {
     setActiveCategory(category);
+  };
+  
+  // Manipula a pesquisa
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
   };
 
   // Manipula o checkout (finalização do pedido)
@@ -44,7 +58,9 @@ const AppContent: React.FC = () => {
       {/* Cabeçalho com informações do restaurante e carrinho */}
       <Header 
         onOpenCart={() => setIsCartOpen(true)} 
-        cartItemsCount={getItemsCount()} 
+        cartItemsCount={getItemsCount()}
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
       />
 
       {/* Navegação por categorias */}
@@ -68,8 +84,8 @@ const AppContent: React.FC = () => {
 
         {/* Grid de produtos */}
         <div className="products-grid">
-          {products.length > 0 ? (
-            products.map((product) => (
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
@@ -78,7 +94,12 @@ const AppContent: React.FC = () => {
             ))
           ) : (
             <div className="no-products">
-              <p>Nenhum produto encontrado nesta categoria.</p>
+              <p>
+                {searchQuery.trim() 
+                  ? `Nenhum produto encontrado para "${searchQuery}"`
+                  : 'Nenhum produto encontrado nesta categoria.'
+                }
+              </p>
             </div>
           )}
         </div>
