@@ -144,25 +144,3 @@
     width: 30px;
   }
 }
-
-/* Efeito de gradiente nas bordas para indicar scroll */
-.tabs-container::before,
-.tabs-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 20px;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.tabs-container::before {
-  left: 0;
-  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-}
-
-.tabs-container::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-}

@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Header, CategoryTabs, ProductCard, Cart } from './components';
+import { Header, CategoryTabs, ProductCard, Cart, ConfirmModal } from './components';
 import { CartProvider, useCart } from './context';
 import { categories, getProductsByCategory } from './data/products';
 import type { CategoryType, CustomerInfo, Product } from './types';
@@ -15,6 +15,7 @@ const AppContent: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryType>('destaques');
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [confirmProduct, setConfirmProduct] = useState<Product | null>(null);
   const { addItem, getItemsCount, clearCart } = useCart();
 
   // Obtém os produtos da categoria ativa
@@ -30,9 +31,22 @@ const AppContent: React.FC = () => {
 
   // Manipula a adição de produtos ao carrinho
   const handleAddToCart = (product: Product) => {
-    addItem(product);
-    // Feedback visual opcional (toast, animação, etc.)
-    console.log(`${product.name} adicionado ao carrinho!`);
+    setConfirmProduct(product);
+  };
+
+  // Confirma a adição ao carrinho
+  const handleConfirmAddToCart = () => {
+    if (confirmProduct) {
+      addItem(confirmProduct);
+      setConfirmProduct(null);
+      // Feedback visual opcional
+      console.log(`${confirmProduct.name} adicionado ao carrinho!`);
+    }
+  };
+
+  // Cancela a adição ao carrinho
+  const handleCancelAddToCart = () => {
+    setConfirmProduct(null);
   };
 
   // Manipula a mudança de categoria
@@ -111,6 +125,16 @@ const AppContent: React.FC = () => {
         onClose={() => setIsCartOpen(false)}
         onCheckout={handleCheckout}
       />
+
+      {/* Modal de confirmação */}
+      {confirmProduct && (
+        <ConfirmModal
+          product={confirmProduct}
+          isOpen={!!confirmProduct}
+          onConfirm={handleConfirmAddToCart}
+          onCancel={handleCancelAddToCart}
+        />
+      )}
     </div>
   );
 };
