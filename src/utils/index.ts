@@ -3,7 +3,17 @@
  * Funções auxiliares para formatação, validação e integração com WhatsApp
  */
 
-import type { CartItem, CustomerInfo } from '../types';
+import type { CartItem, CustomerInfo, DeliveryOption } from '../types';
+
+// Dados de entrega por bairro
+export const DELIVERY_OPTIONS: DeliveryOption[] = [
+  { neighborhood: 'Centro', price: 5.99, time: '30-40min' },
+  { neighborhood: 'Jardins', price: 7.99, time: '35-45min' },
+  { neighborhood: 'Vila Madalena', price: 8.99, time: '40-50min' },
+  { neighborhood: 'Pinheiros', price: 6.99, time: '25-35min' },
+  { neighborhood: 'Liberdade', price: 5.99, time: '30-40min' },
+  { neighborhood: 'Bela Vista', price: 6.99, time: '25-35min' }
+];
 
 /**
  * Formata um valor monetário para o formato brasileiro
@@ -15,6 +25,36 @@ export const formatCurrency = (value: number): string => {
     style: 'currency',
     currency: 'BRL',
   }).format(value);
+};
+
+/**
+ * Buscar preço de entrega por bairro
+ * @param neighborhood - Nome do bairro
+ * @returns Preço de entrega para o bairro
+ */
+export const getDeliveryFeeByNeighborhood = (neighborhood?: string): number => {
+  if (!neighborhood) return DELIVERY_OPTIONS[0].price; // Default para Centro
+  
+  const option = DELIVERY_OPTIONS.find(
+    opt => opt.neighborhood.toLowerCase() === neighborhood.toLowerCase()
+  );
+  
+  return option ? option.price : DELIVERY_OPTIONS[0].price;
+};
+
+/**
+ * Buscar tempo de entrega por bairro
+ * @param neighborhood - Nome do bairro
+ * @returns Tempo de entrega para o bairro
+ */
+export const getDeliveryTimeByNeighborhood = (neighborhood?: string): string => {
+  if (!neighborhood) return DELIVERY_OPTIONS[0].time;
+  
+  const option = DELIVERY_OPTIONS.find(
+    opt => opt.neighborhood.toLowerCase() === neighborhood.toLowerCase()
+  );
+  
+  return option ? option.time : DELIVERY_OPTIONS[0].time;
 };
 
 /**

@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { X, Minus, Plus, ShoppingBag, User, Phone, MapPin } from 'lucide-react';
 import type { CartProps, CustomerInfo } from '../../types';
 import { useCart } from '../../context';
-import { formatCurrency, sendOrderToWhatsApp, isValidPhone, APP_CONFIG } from '../../utils';
+import { formatCurrency, sendOrderToWhatsApp, isValidPhone, APP_CONFIG, DELIVERY_OPTIONS, getDeliveryFeeByNeighborhood } from '../../utils';
 import './Cart.css';
 
 const Cart: React.FC<CartProps> = ({ isOpen, onClose, onCheckout }) => {
@@ -16,6 +16,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, onCheckout }) => {
     name: '',
     phone: '',
     address: '',
+    neighborhood: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Partial<CustomerInfo>>({});
@@ -40,6 +41,10 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, onCheckout }) => {
       newErrors.address = 'Endereço é obrigatório';
     } else if (customerInfo.address.trim().length < 10) {
       newErrors.address = 'Endereço deve ser mais completo';
+    }
+
+    if (!customerInfo.neighborhood?.trim()) {
+      newErrors.neighborhood = 'Selecione um bairro';
     }
 
     setErrors(newErrors);
@@ -71,7 +76,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, onCheckout }) => {
       onCheckout(customerInfo);
       
       // Limpa o formulário
-      setCustomerInfo({ name: '', phone: '', address: '' });
+      setCustomerInfo({ name: '', phone: '', address: '', neighborhood: '' });
       
       // Fecha o carrinho
       onClose();
@@ -101,7 +106,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, onCheckout }) => {
   // Se o carrinho não estiver aberto, não renderiza nada
   if (!isOpen) return null;
 
-  const deliveryFee = state.total > 0 ? APP_CONFIG.DELIVERY_FEE : 0;
+  const deliveryFee = state.total > 0 ? getDeliveryFeeByNeighborhood(customerInfo.neighborhood) : 0;
   const totalWithDelivery = state.total + deliveryFee;
 
   return (
@@ -228,6 +233,27 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, onCheckout }) => {
                     className={errors.phone ? 'error' : ''}
                   />
                   {errors.phone && <span className="error-message">{errors.phone}</span>}
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="neighborhood">
+                    <MapPin size={18} />
+                    Bairro para entrega
+                  </label>
+                  <select
+                    id="neighborhood"
+                    value={customerInfo.neighborhood || ''}
+                    onChange={(e) => handleInputChange('neighborhood', e.target.value)}
+                    className={errors.neighborhood ? 'error' : ''}
+                  >
+                    <option value="">Selecione seu bairro</option>
+                    {DELIVERY_OPTIONS.map((option) => (
+                      <option key={option.neighborhood} value={option.neighborhood}>
+                        {option.neighborhood} - R$ {option.price.toFixed(2).replace('.', ',')} ({option.time})
+                      </option>
+                    ))}
+                  </select>
+                  {errors.neighborhood && <span className="error-message">{errors.neighborhood}</span>}
                 </div>
 
                 <div className="form-group">

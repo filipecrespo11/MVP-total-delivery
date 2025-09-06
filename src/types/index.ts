@@ -26,6 +26,14 @@ export interface CustomerInfo {
   name: string;
   phone: string;
   address: string;
+  neighborhood?: string;
+}
+
+// Interface para opções de entrega por bairro
+export interface DeliveryOption {
+  neighborhood: string;
+  price: number;
+  time: string;
 }
 
 // Interface para o pedido completo
