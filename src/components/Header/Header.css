@@ -67,7 +67,7 @@
 .restaurant-profile {
   position: absolute;
   top: 54%;
-  left: 20%;
+  left: 13%;
   transform: translate(-50%, -50%);
   z-index: 10;
   text-align: left;
@@ -139,14 +139,14 @@
   flex-wrap: wrap;
   max-width: 100%;
   overflow: hidden;
-  margin-left: 10px;
+  margin-left: auto;
 }
 
 .rating-stars {
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-left: 80px;
+  margin-left: 89px;
 }
 
 .star {
@@ -579,6 +579,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     max-width: 100%;
+    margin-left: auto;
   }
   
   /* Detalhes extras compactos */
