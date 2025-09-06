@@ -69,7 +69,7 @@
   top: 54%;
   left: 13%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 15;
   text-align: left;
   width: calc(100% - 40px);
   max-width: 400px;
@@ -89,6 +89,8 @@
   border: 4px solid #8B4513;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   margin-left: 90px;
+  z-index: 15;
+  position: relative;
 }
 
 .restaurant-logo .gourmet-text {
@@ -101,7 +103,7 @@
 }
 
 .restaurant-logo .burger-icon {
-  font-size: 40px;
+  font-size: 30px;
   margin: 5px 0;
  
 }
@@ -116,6 +118,11 @@
 }
 
 /* Informações do restaurante - alinhadas à esquerda como na referência */
+.restaurant-info {
+  position: relative;
+  z-index: 15;
+}
+
 .restaurant-info h1 {
   color: white;
   font-size: 2rem;
@@ -139,14 +146,14 @@
   flex-wrap: wrap;
   max-width: 100%;
   overflow: hidden;
-  margin-left: auto;
+  margin-left: 85px;
 }
 
 .rating-stars {
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-left: 77px;
+  margin-left: 50px;
 }
 
 .star {
@@ -315,8 +322,16 @@
   }
 }
 
-/* Controles do header - posicionados nos cantos */
-.header-controls {
+/* Botão do menu no lado esquerdo */
+.header-menu-left {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 20;
+}
+
+/* Controles no lado direito */
+.header-controls-right {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -340,6 +355,7 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
+  
 }
 
 .header-button:hover {

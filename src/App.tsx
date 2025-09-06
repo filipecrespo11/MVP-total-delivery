@@ -14,27 +14,13 @@ import './App.css';
 // Componente interno que usa o contexto do carrinho
 const AppContent: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { addItem, getItemsCount, clearCart } = useCart();
-
-  // Obtém todos os produtos de todas as categorias
-  const allProducts = categories.flatMap(category => getProductsByCategory(category.id));
-  
-  // Filtra produtos baseado na pesquisa
-  const filteredProducts = searchQuery.trim() 
-    ? allProducts.filter(product => 
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : allProducts;
 
   // Agrupa produtos por categoria para exibir em seções
   const productsByCategory = categories.map(category => ({
     category,
-    products: searchQuery.trim() 
-      ? filteredProducts.filter(p => p.category === category.id)
-      : getProductsByCategory(category.id)
+    products: getProductsByCategory(category.id)
   })).filter(section => section.products.length > 0);
 
   // Manipula o clique no produto para abrir a modal
@@ -55,15 +41,10 @@ const AppContent: React.FC = () => {
     setSelectedProduct(null);
   };
 
-  // Manipula a mudança de categoria - não mais necessário
-  // const handleCategoryChange = (category: CategoryType) => {
-  //   setActiveCategory(category);
+  // Manipula a pesquisa - não mais necessário
+  // const handleSearchChange = (query: string) => {
+  //   setSearchQuery(query);
   // };
-  
-  // Manipula a pesquisa
-  const handleSearchChange = (query: string) => {
-    setSearchQuery(query);
-  };
 
   // Manipula o checkout (finalização do pedido)
   const handleCheckout = (customerInfo: CustomerInfo) => {
@@ -79,15 +60,13 @@ const AppContent: React.FC = () => {
       <Header 
         onOpenCart={() => setIsCartOpen(true)} 
         cartItemsCount={getItemsCount()}
-        searchQuery={searchQuery}
-        onSearchChange={handleSearchChange}
       />
 
       {/* Conteúdo principal em formato landing page */}
       <main className="main-content landing-page">
         {/* Seções por categoria */}
         {productsByCategory.map(({ category, products }) => (
-          <section key={category.id} className="category-section">
+          <section key={category.id} className="category-section" data-category={category.id}>
             <div className="section-header">
               <h2 className="section-title">{category.name}</h2>
               <p className="section-description">
@@ -111,12 +90,7 @@ const AppContent: React.FC = () => {
         {/* Mensagem quando não há produtos */}
         {productsByCategory.length === 0 && (
           <div className="no-products">
-            <p>
-              {searchQuery.trim() 
-                ? `Nenhum produto encontrado para "${searchQuery}"`
-                : 'Nenhum produto disponível no momento.'
-              }
-            </p>
+            <p>Nenhum produto disponível no momento.</p>
           </div>
         )}
       </main>

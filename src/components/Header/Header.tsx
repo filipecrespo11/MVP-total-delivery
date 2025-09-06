@@ -10,14 +10,12 @@ import './Header.css';
 
 const Header: React.FC<HeaderProps> = ({ 
   cartItemsCount, 
-  onOpenCart, 
-  searchQuery, 
-  onSearchChange 
+  onOpenCart
 }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [showDeliveryOptions, setShowDeliveryOptions] = useState(false);
   const [showSchedule, setShowSchedule] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // Dados de entrega por bairro
   const deliveryOptions = [
@@ -46,17 +44,6 @@ const Header: React.FC<HeaderProps> = ({
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
-    if (isSearchOpen) {
-      onSearchChange('');
-    }
-  };
-
-  const scrollToCategory = (categoryId: string) => {
-    const element = document.getElementById(categoryId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
   };
 
   return (
@@ -68,8 +55,8 @@ const Header: React.FC<HeaderProps> = ({
         {/* Seção inferior preta */}
         <div className="header-black-section"></div>
 
-        {/* Controles no canto superior direito */}
-        <div className="header-controls">
+        {/* Botão do menu no lado esquerdo */}
+        <div className="header-menu-left">
           <button 
             className="header-button"
             onClick={toggleMenu}
@@ -77,7 +64,10 @@ const Header: React.FC<HeaderProps> = ({
           >
             <Menu size={20} />
           </button>
-          
+        </div>
+
+        {/* Controles no lado direito */}
+        <div className="header-controls-right">
           <button 
             className="header-button"
             onClick={toggleSearch}
@@ -98,76 +88,76 @@ const Header: React.FC<HeaderProps> = ({
           </button>
         </div>
 
-        {/* Perfil do restaurante centralizado */}
+        {/* Perfil completo do restaurante - tudo em uma div */}
         <div className="restaurant-profile">
+          {/* Logo do restaurante - centralizado */}
           <div className="restaurant-logo">
-            <div className="gourmet-text">GOURMET</div>
-            <div className="burger-icon">🍔</div>
-            <div className="restaurant-name">
-              Calixto's<br />
-              BURGUER
-            </div>
+            <img 
+              src="/src/assets/logo-placeholder.svg" 
+              alt="Burger House Logo" 
+            />
           </div>
-          
+
+          {/* Informações do restaurante */}
           <div className="restaurant-info">
-            <h1>Calixto's Burguer</h1>
-            <div className="restaurant-rating">
-              <div className="rating-stars">
-                <span className="star">⭐</span>
-                <span>4.7</span>
+            <div className="restaurant-main-info">
+              <h1 className="restaurant-name">Burger House</h1>
+              
+              <div className="restaurant-rating">
+                <span>⭐ 4.5</span>
+                <span>(200+ avaliações)</span>
+                <span>•</span>
+                <span>1.6km</span>
               </div>
-              <span>(200+ avaliações)</span>
-              <span>•</span>
-              <span>1.6km</span>
-            </div>
-            
-            <div className="restaurant-details">
-              <div className="detail-item">
-                <span className="detail-icon">🕐</span>
-                <span>60-60m</span>
-              </div>
-              <div 
-                className="detail-item delivery-item"
-                onMouseEnter={() => setShowDeliveryOptions(true)}
-                onMouseLeave={() => setShowDeliveryOptions(false)}
-                onClick={() => setShowDeliveryOptions(!showDeliveryOptions)}
-              >
-                <span className="detail-icon">💰</span>
-                <span>A partir de 5,99</span>
-                {showDeliveryOptions && (
-                  <div className="delivery-tooltip">
-                    <h4>Valores de entrega por bairro:</h4>
-                    {deliveryOptions.map((option, index) => (
-                      <div key={index} className="delivery-option">
-                        <span className="neighborhood">{option.neighborhood}</span>
-                        <div className="delivery-info">
-                          <span className="price">R$ {option.price}</span>
-                          <span className="time">{option.time}</span>
+              
+              <div className="restaurant-details">
+                <div className="detail-item">
+                  <span className="detail-icon">🕐</span>
+                  <span>60-60m</span>
+                </div>
+                <div 
+                  className="detail-item delivery-item"
+                  onMouseEnter={() => setShowDeliveryOptions(true)}
+                  onMouseLeave={() => setShowDeliveryOptions(false)}
+                  onClick={() => setShowDeliveryOptions(!showDeliveryOptions)}
+                >
+                  <span className="detail-icon">💰</span>
+                  <span>A partir de 5,99</span>
+                  {showDeliveryOptions && (
+                    <div className="delivery-tooltip">
+                      <h4>Valores de entrega por bairro:</h4>
+                      {deliveryOptions.map((option, index) => (
+                        <div key={index} className="delivery-option">
+                          <span className="neighborhood">{option.neighborhood}</span>
+                          <div className="delivery-info">
+                            <span className="price">R$ {option.price}</span>
+                            <span className="time">{option.time}</span>
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div 
-                className="detail-item schedule-item"
-                onMouseEnter={() => setShowSchedule(true)}
-                onMouseLeave={() => setShowSchedule(false)}
-                onClick={() => setShowSchedule(!showSchedule)}
-              >
-                <span className="detail-icon">⏰</span>
-                <span>Ver horários</span>
-                {showSchedule && (
-                  <div className="schedule-tooltip">
-                    <h4>Horários de funcionamento:</h4>
-                    {schedule.map((item, index) => (
-                      <div key={index} className="schedule-day">
-                        <span className="day">{item.day}</span>
-                        <span className="hours">{item.hours}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div 
+                  className="detail-item schedule-item"
+                  onMouseEnter={() => setShowSchedule(true)}
+                  onMouseLeave={() => setShowSchedule(false)}
+                  onClick={() => setShowSchedule(!showSchedule)}
+                >
+                  <span className="detail-icon">⏰</span>
+                  <span>Ver horários</span>
+                  {showSchedule && (
+                    <div className="schedule-tooltip">
+                      <h4>Horários de funcionamento:</h4>
+                      {schedule.map((item, index) => (
+                        <div key={index} className="schedule-day">
+                          <span className="day">{item.day}</span>
+                          <span className="hours">{item.hours}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -184,10 +174,11 @@ const Header: React.FC<HeaderProps> = ({
               <button className="close-menu" onClick={toggleMenu}>✕</button>
             </div>
             <nav className="menu-nav">
-              <button onClick={() => scrollToCategory('pizzas')}>🍕 Pizzas</button>
-              <button onClick={() => scrollToCategory('hamburguers')}>🍔 Hambúrguers</button>
-              <button onClick={() => scrollToCategory('bebidas')}>🥤 Bebidas</button>
-              <button onClick={() => scrollToCategory('sobremesas')}>🍰 Sobremesas</button>
+              <button onClick={() => scrollToCategory('destaques')}>🌟 Destaques</button>
+              <button onClick={() => scrollToCategory('mais-pedidos')}>🔥 Mais Pedidos</button>
+              <button onClick={() => scrollToCategory('burgers')}>🍔 Burgers</button>
+              <button onClick={() => scrollToCategory('gourmet')}>👑 Gourmet</button>
+              <button onClick={() => scrollToCategory('veggies')}>🥗 Veggies</button>
             </nav>
           </div>
         </>
@@ -201,8 +192,6 @@ const Header: React.FC<HeaderProps> = ({
             <input
               type="text"
               placeholder="Buscar produtos..."
-              value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
               autoFocus
             />
             <button onClick={toggleSearch}>✕</button>
@@ -211,6 +200,14 @@ const Header: React.FC<HeaderProps> = ({
       )}
     </>
   );
+
+  function scrollToCategory(categoryId: string) {
+    const element = document.querySelector(`[data-category="${categoryId}"]`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMenuOpen(false);
+  }
 };
 
 export default Header;

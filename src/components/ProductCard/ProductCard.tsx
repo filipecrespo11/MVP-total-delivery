@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick }) => {
           onError={(e) => {
             // Fallback para caso a imagem não carregue
             const target = e.target as HTMLImageElement;
-            target.src = 'https://via.placeholder.com/300x200/E5E7EB/6B7280?text=Produto';
+            target.src = '/src/assets/product-placeholder.svg';
           }}
         />
         

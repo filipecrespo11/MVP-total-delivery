@@ -65,8 +65,6 @@ export interface CartProps {
 export interface HeaderProps {
   onOpenCart: () => void;
   cartItemsCount: number;
-  searchQuery: string;
-  onSearchChange: (query: string) => void;
 }
 
 export interface CategoryTabsProps {

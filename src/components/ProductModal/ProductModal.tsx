@@ -57,7 +57,7 @@ const ProductModal: React.FC<ProductModalProps> = ({
             className="modal-product-image"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              target.src = 'https://via.placeholder.com/400x300/E5E7EB/6B7280?text=Produto';
+              target.src = '/src/assets/product-modal-placeholder.svg';
             }}
           />
           
