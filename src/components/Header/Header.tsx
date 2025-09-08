@@ -92,9 +92,12 @@ const Header: React.FC<HeaderProps> = ({
         <div className="restaurant-profile">
           {/* Logo do restaurante - centralizado */}
           <div className="restaurant-logo">
-            <div className="gourmet-text">GOURMET</div>
-            <div className="burger-icon">🍔</div>
-            <div className="restaurant-name">Calixto's Burger</div>
+            <img 
+              src="/logo.jpeg" 
+              alt="Logo do restaurante" 
+              className="logo-image"
+            />
+           
           </div>
 
           {/* Informações do restaurante */}
